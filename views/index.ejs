@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickPost</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">📝 QuickPost Blog</h1>
+
+        <!-- Create Post Button -->
+        <div class="text-center mb-4">
+            <a href="/create" class="btn btn-success btn-lg">+ Create New Post</a>
+        </div>
+
+        <% if (posts.length === 0) { %>
+            <p class="text-center text-muted">No posts yet. Be the first to write one!</p>
+        <% } %>
+
+        <!-- Blog Posts -->
+        <div class="row">
+            <% posts.forEach((post, index) => { %>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= post.title %></h4>
+                            <p class="card-text"><%= post.content %></p>
+
+                            <!-- Update Form -->
+                            <form action="/update" method="POST" class="mb-3">
+                                <input type="hidden" name="index" value="<%= index %>">
+                                <div class="form-group">
+                                    <input type="text" name="title" class="form-control mb-2" value="<%= post.title %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="content" class="form-control mb-2" rows="3" required><%= post.content %></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                            </form>
+
+                            <!-- Delete Form -->
+                            <form action="/delete" method="POST">
+                                <input type="hidden" name="index" value="<%= index %>">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+      </div>
+      
+    </div>
+    <footer>
+        <div class="text-center mt-4">
+            <p> Made with ❤ in Hassan</p>
+        </div>
+    </footer>
+</body>
+</html>
